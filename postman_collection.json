@@ -1,0 +1,86 @@
+{
+    "info": {
+        "_postman_id": "currency-service-v1",
+        "name": "Currency Service API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Health Check",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:3000/health",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "health"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Convert USD to TRY",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:3000/convert?amount=100&from=USD&to=TRY",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "convert"
+                    ],
+                    "query": [
+                        {
+                            "key": "amount",
+                            "value": "100"
+                        },
+                        {
+                            "key": "from",
+                            "value": "USD"
+                        },
+                        {
+                            "key": "to",
+                            "value": "TRY"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Rates",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:3000/rates?base=USD",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "rates"
+                    ],
+                    "query": [
+                        {
+                            "key": "base",
+                            "value": "USD"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}
