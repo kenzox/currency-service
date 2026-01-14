@@ -37,12 +37,18 @@ Profesyonel Döviz Dönüştürme API Servisi.
    # .env içindeki CURRENCY_API_KEY değerini güncelleyin
    ```
 
-3. Docker ile ayağa kaldırın:
+3. Redis'i başlatın:
    ```bash
-   docker-compose up --build
+   docker-compose up -d
    ```
 
-4. Servis `http://localhost:3000` adresinde çalışacaktır.
+4. Uygulamayı başlatın:
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+5. Servis `http://localhost:3000` adresinde çalışacaktır.
 
 ## 🔌 API Endpointleri
 

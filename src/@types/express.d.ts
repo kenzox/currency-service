@@ -1,9 +1,8 @@
-import { Express } from 'express';
+import 'express';
 
-declare global {
-    namespace Express {
-        interface Request {
-            id?: string;
-        }
+declare module 'express' {
+    interface Request {
+        id?: string;
     }
 }
+
