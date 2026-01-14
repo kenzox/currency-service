@@ -1,4 +1,5 @@
-# Currency Service (PixelArt 2026)
+# Currency Service
+
 
 Profesyonel Döviz Dönüştürme API Servisi.
 
