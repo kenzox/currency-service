@@ -99,7 +99,7 @@ app.use('/api/v1', router); // Assuming /api/v1 prefix as common practice, thoug
 app.use('/', router);
 // Health Check
 import { healthController } from '@/modules/health/health.controller';
-app.get('/health', (req, res) => healthController.check(req, res));
+app.get('/health', (req, res, next) => healthController.check(req, res, next));
 
 app.use(errorHandler);
 

@@ -1,10 +1,33 @@
 services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CURRENCY_API_KEY=${CURRENCY_API_KEY}
+      - CURRENCY_API_URL=${CURRENCY_API_URL}
+    depends_on:
+      - redis
+    networks:
+      - currency-network
+
   redis:
     image: redis:alpine
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    networks:
+      - currency-network
 
 volumes:
   redis_data:
+
+
+networks:
+  currency-network:
+
+

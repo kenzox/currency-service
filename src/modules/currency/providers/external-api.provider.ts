@@ -2,6 +2,8 @@ import axios, { AxiosInstance } from 'axios';
 import axiosRetry from 'axios-retry';
 import { config } from '@/config';
 import { Decimal } from 'decimal.js';
+import { AppError } from '@/core/app-error';
+import { ERROR_CODES, ERROR_MESSAGES } from '@/core/error-codes';
 
 export interface CurrencyApiResponse {
     data: {
@@ -39,9 +41,37 @@ export class ExternalApiProvider {
             });
 
             return rates;
-        } catch (error) {
-            console.error('External API Request Failed:', error);
-            throw new Error('ERR_EXTERNAL_API_FAILED');
+        } catch (error: any) {
+            console.error('External API Request Failed:', error.message);
+
+            if (error.response) {
+                // Rate Limit
+                if (error.response.status === 429) {
+                    // Check if AppError is imported? It is not imported in original file.
+                    // I need to add import or throw generic object that middleware understands?
+                    // Better to throw AppError. I need to check imports.
+                    throw new AppError(
+                        ERROR_CODES.RATE_LIMIT_EXCEEDED,
+                        ERROR_MESSAGES[ERROR_CODES.RATE_LIMIT_EXCEEDED],
+                        429
+                    );
+                }
+            }
+
+            // Network errors (timeout, dns) or 5xx
+            if (error.code === 'ECONNABORTED' || error.code === 'ENOTFOUND' || !error.response) {
+                throw new AppError(
+                    ERROR_CODES.EXTERNAL_API_UNAVAILABLE,
+                    ERROR_MESSAGES[ERROR_CODES.EXTERNAL_API_UNAVAILABLE],
+                    502
+                );
+            }
+
+            throw new AppError(
+                ERROR_CODES.EXTERNAL_API_FAILED,
+                ERROR_MESSAGES[ERROR_CODES.EXTERNAL_API_FAILED],
+                502
+            );
         }
     }
 }

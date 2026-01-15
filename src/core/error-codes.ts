@@ -4,6 +4,7 @@ export const ERROR_CODES = {
     UNSUPPORTED_CURRENCY: 'ERR_UNSUPPORTED_CURRENCY',
     EXTERNAL_API_FAILED: 'ERR_EXTERNAL_API_FAILED',
     RATE_LIMIT_EXCEEDED: 'ERR_RATE_LIMIT',
+    EXTERNAL_API_UNAVAILABLE: 'ERR_EXTERNAL_API_UNAVAILABLE',
 } as const;
 
 export const ERROR_MESSAGES = {
@@ -12,4 +13,5 @@ export const ERROR_MESSAGES = {
     [ERROR_CODES.UNSUPPORTED_CURRENCY]: 'The specified currency is not supported.',
     [ERROR_CODES.EXTERNAL_API_FAILED]: 'Failed to retrieve currency rates from external provider.',
     [ERROR_CODES.RATE_LIMIT_EXCEEDED]: 'Too many requests.',
+    [ERROR_CODES.EXTERNAL_API_UNAVAILABLE]: 'External API is unavailable.',
 };

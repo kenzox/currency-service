@@ -22,14 +22,10 @@ export class CurrencyController {
             res.json({
                 success: true,
                 data: {
-                    amount: Number(query.amount),
+                    amount: query.amount,
                     from: query.from,
                     to: query.to,
-                    result: Number(result) // returning as number or string? 
-                    // Architecture said: "decimal.js ile hesaplanmış sonucu dön."
-                    // JSON usually uses numbers for flexible handling but string for precision.
-                    // Requirement: "Hassasiyet Kuralı: Çıktıyı dönerken ... konfigüre edilebilir yap"
-                    // I will return string to preserve exact precision from decimal.js
+                    result: result // returning as string for precision
                 },
                 correlationId: req.id
             });

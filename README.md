@@ -5,9 +5,10 @@ Profesyonel Döviz Dönüştürme API Servisi.
 
 ## 🚀 Özellikler
 
-- **Multi-Cloud Resilience:** Redis önbellekleme ve External API (currencyapi) yedekleme mekanizması.
-- **Finansal Hassasiyet:** `decimal.js` ile sıfır kayıplı hesaplama.
+- **Multi-Cloud Resilience:** Redis önbellekleme, In-Memory Fallback (Hibrit Cache) ve External API (currencyapi) yedekleme mekanizması.
+- **Finansal Hassasiyet:** `decimal.js` ile sıfır kayıplı hesaplama ve `string` tabanlı veri iletimi.
 - **Güvenlik & Validasyon:** Zod ile sıkı veri doğrulama.
+- **Resilience:** Gelişmiş hata yönetimi (502, 429 yönetimi) ve circuit breaker benzeri yapılar.
 - **İzlenebilirlik:** Her istek için `X-Correlation-Id` takibi.
 - **API Dokümantasyonu:** Swagger/OpenAPI entegrasyonu.
 
@@ -38,12 +39,12 @@ Profesyonel Döviz Dönüştürme API Servisi.
    # .env içindeki CURRENCY_API_KEY değerini güncelleyin
    ```
 
-3. Redis'i başlatın:
+3. Uygulamayı başlatın (Tüm servisler):
    ```bash
-   docker-compose up -d
+   docker-compose up -d --build
    ```
 
-4. Uygulamayı başlatın:
+4. Alternatif: Lokal Geliştirme (Sadece Redis Docker'da):
    ```bash
    npm install
    npm run dev
@@ -71,7 +72,7 @@ Profesyonel Döviz Dönüştürme API Servisi.
   {
     "success": true,
     "data": {
-      "amount": 100,
+      "amount": "100.00",
       "from": "USD",
       "to": "TRY",
       "result": "3425.5000"
@@ -97,6 +98,8 @@ Profesyonel Döviz Dönüştürme API Servisi.
 | `ERR_UNSUPPORTED_CURRENCY` | Desteklenmeyen para birimi | 400 |
 | `ERR_INTERNAL` | Sunucu hatası | 500 |
 | `ERR_EXTERNAL_API_FAILED` | Dış servis hatası | 502 |
+| `ERR_EXTERNAL_API_UNAVAILABLE` | Dış servise erişilemiyor (Network) | 502 |
+| `ERR_RATE_LIMIT` | Dış servis limit aşımı | 429 |
 
 ## 🧪 Testler
 
