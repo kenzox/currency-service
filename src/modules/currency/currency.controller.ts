@@ -14,6 +14,31 @@ import { externalApiProvider } from './providers/external-api.provider'; // Acce
 // Refactoring service first.
 
 export class CurrencyController {
+    /**
+     * @openapi
+     * /convert:
+     *   get:
+     *     summary: Convert currency
+     *     parameters:
+     *       - in: query
+     *         name: from
+     *         required: true
+     *         schema:
+     *           type: string
+     *       - in: query
+     *         name: to
+     *         required: true
+     *         schema:
+     *           type: string
+     *       - in: query
+     *         name: amount
+     *         required: true
+     *         schema:
+     *           type: number
+     *     responses:
+     *       200:
+     *         description: Success
+     */
     async convert(req: Request, res: Response, next: NextFunction) {
         try {
             const query = ConvertQuerySchema.parse(req.query);
@@ -38,6 +63,22 @@ export class CurrencyController {
      * Note: The user didn't explicitly ask for GET /rates logic in Phase 3, 
      * but Phase 4 asks for "GET /rates" endpoint.
      * I need a way to get rates. I will assume I need to update service.
+     */
+    /**
+     * @openapi
+     * /rates:
+     *   get:
+     *     summary: Get exchange rates
+     *     parameters:
+     *       - in: query
+     *         name: base
+     *         schema:
+     *           type: string
+     *           default: USD
+     *         description: Base currency code
+     *     responses:
+     *       200:
+     *         description: Success
      */
     async getRates(req: Request, res: Response, next: NextFunction) {
         try {

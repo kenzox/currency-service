@@ -26,7 +26,7 @@ const swaggerOptions = {
             },
         ],
     },
-    apis: ['./src/modules/**/*.ts'], // Scan for docs in modules
+    apis: ['./src/modules/**/*.ts', './dist/src/modules/**/*.js'], // Scan for docs in modules
 };
 
 // Manually add paths if we don't decorate controllers (or simple scan)
@@ -45,50 +45,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // Routes
 const router = express.Router();
 
-// I'll add JSDoc comments here for Swagger
-/**
- * @openapi
- * /rates:
- *   get:
- *     summary: Get exchange rates
- *     parameters:
- *       - in: query
- *         name: base
- *         schema:
- *           type: string
- *           default: USD
- *         description: Base currency code
- *     responses:
- *       200:
- *         description: Success
- */
 router.get('/rates', (req, res, next) => currencyController.getRates(req, res, next));
-
-/**
- * @openapi
- * /convert:
- *   get:
- *     summary: Convert currency
- *     parameters:
- *       - in: query
- *         name: from
- *         required: true
- *         schema:
- *           type: string
- *       - in: query
- *         name: to
- *         required: true
- *         schema:
- *           type: string
- *       - in: query
- *         name: amount
- *         required: true
- *         schema:
- *           type: number
- *     responses:
- *       200:
- *         description: Success
- */
 router.get('/convert', (req, res, next) => currencyController.convert(req, res, next));
 
 
